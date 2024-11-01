@@ -1,9 +1,9 @@
-apiVersion: apps/v1.1.2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: httpd-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: httpd
@@ -17,8 +17,15 @@ spec:
         image: httpd
         ports:
         - containerPort: 80
+        resources:
+          requests:
+            cpu: 10m
+            memory: 6Mi
+          limits:
+            cpu: 15m
+            memory: 10Mi
 ---
-apiVersion: v1.1.2
+apiVersion: v1
 kind: Service
 metadata:
   name: httpd-service
